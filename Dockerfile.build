@@ -1,0 +1,5 @@
+# syntax = devthefuture/dockerfile-x
+
+FROM ./Dockerfile.base
+
+RUN mkdir build && cd build && cmake .. && make -j $(nproc)
