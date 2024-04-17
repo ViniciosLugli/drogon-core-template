@@ -2,8 +2,18 @@
 #include <drogon/drogon.h>
 #include <drogon/drogon_test.h>
 
-DROGON_TEST(BasicTest) {
-	// Add your tests here
+int sum_all(int n) {
+	int result = 0;
+	for (int i = 1; i <= n; i++) {
+		result += i;
+	}
+	return result;
+}
+
+DROGON_TEST(Sum) {
+	CHECK(sum_all(1) == 1);
+	CHECK(sum_all(2) == 3);
+	CHECK(sum_all(3) == 6);
 }
 
 int main(int argc, char** argv) {
