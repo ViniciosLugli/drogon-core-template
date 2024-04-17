@@ -184,7 +184,7 @@ class UserController : public drogon::HttpSimpleController<UserController>
   public:
     void asyncHandleHttpRequest(const HttpRequestPtr& req, std::function<void (const HttpResponsePtr &)> &&callback) override;
     PATH_LIST_BEGIN
-	PATH_ADD("/users", Get);
+    PATH_ADD("/users", Get);
     PATH_LIST_END
 };
 ```
@@ -194,14 +194,14 @@ Now you can add your application logic to the `asyncHandleHttpRequest` method in
 ```cpp
 void UserController::asyncHandleHttpRequest(const HttpRequestPtr& req, std::function<void (const HttpResponsePtr &)> &&callback)
 {
-	Json::Value users;
-	users["users"] = Json::arrayValue;
-	users["users"].append("Alice");
-	users["users"].append("Bob");
-	users["users"].append("Charlie");
+    Json::Value users;
+    users["users"] = Json::arrayValue;
+    users["users"].append("Alice");
+    users["users"].append("Bob");
+    users["users"].append("Charlie");
 
-	auto response = HttpResponse::newHttpJsonResponse(users);
-	callback(response);
+    auto response = HttpResponse::newHttpJsonResponse(users);
+    callback(response);
 }
 ```
 
@@ -284,20 +284,20 @@ In the `AuthFilter.cc` file, you can define the logic that the filter will execu
 
 ```cpp
 void AuthFilter::doFilter(const HttpRequestPtr &req,
-						 FilterCallback &&fcb,
-						 FilterChainCallback &&fccb)
+                         FilterCallback &&fcb,
+                         FilterChainCallback &&fccb)
 {
-	//Edit your logic here
-	if (req->getHeader("Authorization") == "Bearer token")
-	{
-		//Passed
-		fccb();
-		return;
-	}
-	//Check failed
-	auto res = drogon::HttpResponse::newHttpResponse();
-	res->setStatusCode(k401Unauthorized);
-	fcb(res);
+    //Edit your logic here
+    if (req->getHeader("Authorization") == "Bearer token")
+    {
+        //Passed
+        fccb();
+        return;
+    }
+    //Check failed
+    auto res = drogon::HttpResponse::newHttpResponse();
+    res->setStatusCode(k401Unauthorized);
+    fcb(res);
 }
 ```
 
@@ -312,10 +312,10 @@ using namespace drogon;
 
 class UserController : public drogon::HttpSimpleController<UserController> {
 public:
-	void asyncHandleHttpRequest(const HttpRequestPtr &req, std::function<void(const HttpResponsePtr &)> &&callback) override;
-	PATH_LIST_BEGIN
-	PATH_ADD("/users", Get, "AuthFilter");
-	PATH_LIST_END
+    void asyncHandleHttpRequest(const HttpRequestPtr &req, std::function<void(const HttpResponsePtr &)> &&callback) override;
+    PATH_LIST_BEGIN
+    PATH_ADD("/users", Get, "AuthFilter");
+    PATH_LIST_END
 };
 ```
 
